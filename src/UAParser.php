@@ -29,9 +29,19 @@ class UAParser
     const WEARABLE = 'wearable';
     const EMBEDDED = 'embedded';
 
+    /**
+     * @var null
+     */
     private $ua;
+
+    /**
+     * @var array
+     */
     private $rgxmap = [];
 
+    /**
+     * @var array
+     */
     private $maps = [
 
         'browser' => [
@@ -86,9 +96,21 @@ class UAParser
 
     ];
 
+    /**
+     * @var Mapper
+     */
     private $mapper;
+
+    /**
+     * @var Util
+     */
     private $util;
 
+    /**
+     * UAParser constructor.
+     * @param null $uastring
+     * @param null $extensions
+     */
     public function __construct($uastring = null, $extensions = null)
     {
 
@@ -444,7 +466,11 @@ class UAParser
             ], [self::MODEL, [self::VENDOR, 'Motorola'], [self::TYPE, self::TABLET]], [
 
                 '/hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i'            // HbbTV devices
-            ], [[self::VENDOR, 'util.trim'], [self::MODEL, 'util.trim'], [self::TYPE, self::SMARTTV]], [
+            ], [[self::VENDOR, function ($str) {
+                    return $this->util->trim($str);
+                }], [self::MODEL, function ($str) {
+                    return $this->util->trim($str);
+                }], [self::TYPE, self::SMARTTV]], [
 
                 '/hbbtv.+maple;(\d+)/i'
             ], [[self::MODEL, '/^/', 'SmartTV'], [self::VENDOR, 'Samsung'], [self::TYPE, self::SMARTTV]], [
@@ -745,7 +771,9 @@ class UAParser
 
     }
 
-
+    /**
+     * @return array
+     */
     public function getBrowser()
     {
         $browser = ['name' => null, 'version' => null];
@@ -754,6 +782,9 @@ class UAParser
         return $browser;
     }
 
+    /**
+     * @return array
+     */
     public function getCPU()
     {
         $cpu = ['architecture' => null];
@@ -761,6 +792,9 @@ class UAParser
         return $cpu;
     }
 
+    /**
+     * @return array
+     */
     public function getDevice()
     {
         $device = ['vendor' => null, 'model' => null, 'type' => null];
@@ -768,6 +802,9 @@ class UAParser
         return $device;
     }
 
+    /**
+     * @return array
+     */
     public function getEngine()
     {
         $engine = ['name' => null, 'version' => null];
@@ -775,6 +812,9 @@ class UAParser
         return $engine;
     }
 
+    /**
+     * @return array
+     */
     public function getOS()
     {
         $os = ['name' => null, 'version' => null];
@@ -782,6 +822,9 @@ class UAParser
         return $os;
     }
 
+    /**
+     * @return array
+     */
     public function getResult()
     {
         return [
@@ -794,11 +837,18 @@ class UAParser
         ];
     }
 
+    /**
+     * @return null|string
+     */
     public function getUA()
     {
         return $this->ua;
     }
 
+    /**
+     * @param $ua
+     * @return $this
+     */
     public function setUA($ua)
     {
         $this->ua = $ua;

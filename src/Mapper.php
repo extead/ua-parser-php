@@ -8,15 +8,26 @@ namespace Extead\UAParser;
  */
 class Mapper
 {
+    /**
+     * @var Util
+     */
+    private $util;
 
-    protected $util;
-
+    /**
+     * Mapper constructor.
+     */
     public function __construct()
     {
         $this->util = new Util();
     }
 
-    public function rgx(&$rItem, $ua, $arrays) {
+    /**
+     * @param $rItem
+     * @param $ua
+     * @param $arrays
+     */
+    public function rgx(&$rItem, $ua, $arrays)
+    {
         $i = 0;
 
         $matches = false;
@@ -61,6 +72,11 @@ class Mapper
         }
     }
 
+    /**
+     * @param $str
+     * @param $map
+     * @return int|null|string
+     */
     public function str($str, $map)
     {
         foreach ($map as $key => $item) {
@@ -77,9 +93,14 @@ class Mapper
         return $str;
     }
 
+    /**
+     * @param $string
+     * @return bool
+     */
     protected function isRegularExpression($string)
     {
-        set_error_handler(function () {}, E_WARNING);
+        set_error_handler(function () {
+        }, E_WARNING);
         $isRegularExpression = preg_match($string, "") !== FALSE;
         restore_error_handler();
         return $isRegularExpression;
