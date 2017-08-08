@@ -1,0 +1,24 @@
+{
+    "name": "extead/ua-parser-php",
+    "description": "PHP UA Parser library based on https://github.com/faisalman/ua-parser-js",
+    "keywords": ["useragent", "parser", "ua-parser"],
+    "license": "(GPL-2.0 OR MIT)",
+    "authors": [
+        {
+            "name": "Maxim Perfilev",
+            "email": "extead@gmail.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+		"php": ">=5.4"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "5.2.*"
+    },
+	"autoload": {
+        "psr-4": {
+            "Extead\\UAParser\\": "src/"
+        }
+    }
+}
